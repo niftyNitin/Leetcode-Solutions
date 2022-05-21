@@ -7,32 +7,22 @@ using namespace std;
 //User function Template for C++
 class Solution{   
   public:
-    vector<int> farNumber(int n,vector<int> arr){
-        //code here
-        vector<int> ans(n);
-        vector<int> s(n);
-        
-        s[n-1] = arr[n-1];
-        for(int i = n-2; i >= 0; i--) {
-            s[i] = min(s[i+1], arr[i]);
+    vector<int> farNumber(int n, vector<int>& a){
+    vector<int> b(n, INT_MAX), ans(n) ;
+    int min_e = INT_MAX ;
+    for(int i=n-1 ; i>=0 ; i--){
+        auto itr = lower_bound(b.begin()+i+1, b.end(), a[i]) ;
+        if(itr == b.begin()+i+1)
+            ans[i] = -1 ;
+        else{
+            itr = prev(itr) ;
+            ans[i] = itr - b.begin() ;
         }
-        
-        ans[n-1] = -1;
-        for(int i = n-2; i >= 0; i--) {
-            int l = i+1;
-            int r = n-1;
-            while(l <= r) {
-                int m = l + (r-l) / 2;
-                
-                if(s[m] < arr[i])   l = m + 1;
-                else    r = m - 1;
-            }
-            if(r == i)  ans[i] = -1;
-            else    ans[i] = r;
-        }
-        
-        return ans;
+        min_e = min(min_e,a[i]) ;
+        b[i] = min_e ;
     }
+    return ans ;
+}
 };
 
 // { Driver Code Starts.
