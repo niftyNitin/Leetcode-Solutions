@@ -7,23 +7,12 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:	
-	string get(int times, string sub) {
-	    string res = "";
-	    while(times--) {
-	        res += sub;
-	    }
-	    return res;
-	}	
-		
-		
 	int isRepeat(string s)
 	{
 	    // Your code goes here
-	    int n = s.size();
-	    for(int i = 1; i <= n/2; i++) {
-	        if(n % i == 0)
-	            if(get(n/i, s.substr(0, i)) == s)   return 1;
-	    }
+	    string t = s+s;
+	    string ns = t.substr(1, t.size()-2);
+	    if(ns.find(s) != -1)    return 1;
 	    return 0;
 	}
 };
