@@ -26,6 +26,7 @@ public:
         pair<int, string> ans;
         ans.first = INT_MAX;
         for(int i=low; i<high; i++)
+        
         {
             pair<int, string> p1 = solve(p, n, low, i, dp);
             pair<int, string> p2 = solve(p, n, i+1, high, dp);
