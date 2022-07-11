@@ -11,10 +11,11 @@ using namespace std;
 class Solution
 {
 public:
-    void findPaths(int n, int m, int i, int j, vector<vector<int>> &grid, vector<vector<int>> &res, vector<int> ds) {
+    void findPaths(int n, int m, int i, int j, vector<vector<int>> &grid, vector<vector<int>> &res, vector<int> &ds) {
         if(i == n-1 and j == m-1) {
             ds.push_back(grid[i][j]);
             res.push_back(ds);
+            ds.pop_back();
             return;
         }
         
@@ -22,7 +23,7 @@ public:
         ds.push_back(grid[i][j]);
         findPaths(n, m, i+1, j, grid, res, ds);
         findPaths(n, m, i, j+1, grid, res, ds);
-        // ds.pop_back();
+        ds.pop_back();
     }
 
     vector<vector<int>> findAllPossiblePaths(int n, int m, vector<vector<int>> &grid)
