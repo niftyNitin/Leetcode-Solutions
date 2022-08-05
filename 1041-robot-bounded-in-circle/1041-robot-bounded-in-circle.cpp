@@ -4,7 +4,7 @@ public:
         int x = 0, y = 0;
         char dir[] = {'N', 'E', 'S', 'W'};
         int curr = 0;
-        int z = 360;
+        int z = 4;
         while(z--) {
             for(char c : instructions) {
                 if(c == 'L') {
