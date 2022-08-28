@@ -8,26 +8,24 @@ public:
             return;
         }
         
-        if(isdigit(s[idx])){
-            ds.push_back(s[idx]);
-            solve(s,ds,idx+1,n);
-            ds.pop_back();
-        }
-        else{
-            char c = s[idx];
-            if(islower(c)) {
-                ds.push_back(toupper(c));
-                solve(s,ds,idx+1,n);
+        for(int i=idx; i<n; i++){
+            if(isdigit(s[i])){
+                ds.push_back(s[i]);
+                solve(s,ds,i+1,n);
                 ds.pop_back();
             }
-            else {
+            else{
+                char c = s[i];
                 ds.push_back(tolower(c));
-                solve(s,ds,idx+1,n);
+                solve(s,ds,i+1,n);
+                ds.pop_back();
+                
+                
+                ds.push_back(toupper(c));
+                solve(s,ds,i+1,n);
                 ds.pop_back();
             }
-            ds.push_back(c);
-            solve(s,ds,idx+1,n);
-            ds.pop_back();
+        
         }
     }
     
