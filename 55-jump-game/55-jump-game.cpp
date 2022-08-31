@@ -1,19 +1,17 @@
 class Solution {
 public:
-    int dp[10001];
-    bool jump_helper(vector<int> &nums, int idx) {
-        if(idx >= nums.size())  return false;
-        if(idx == nums.size()-1)    return true;
-        if(dp[idx] != -1)   return dp[idx];
-        for(int i = idx+1; i <= idx+nums[idx]; i++) {
-            bool res = jump_helper(nums, i);
-            if(res) return dp[idx] = true;
-        }
-        return dp[idx] = false;
-    }
-    
     bool canJump(vector<int>& nums) {
-        memset(dp, -1, sizeof(dp));
-        return jump_helper(nums, 0);
+        int n = nums.size();
+        vector<bool> dp(n, 0);
+        dp[n-1] = 1;
+        for(int i = n-2; i >= 0; i--) {
+            for(int j = 1; j <= nums[i]; j++) {
+                if(dp[i+j] == true) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[0];
     }
 };
