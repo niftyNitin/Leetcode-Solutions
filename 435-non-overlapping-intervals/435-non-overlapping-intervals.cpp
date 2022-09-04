@@ -5,7 +5,7 @@ public:
         return a[0] < b[0];
     }
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), cmp);
+        sort(intervals.begin(), intervals.end());
         int count = 0;
         int start = intervals[0][0];
         int end = intervals[0][1];
