@@ -1,25 +1,22 @@
 class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
-        unordered_map<float,int> mp;
-        sort(changed.begin(), changed.end());
+        int n = changed.size();
+        if(n & 1) return {};
+        
+        unordered_map<int, int> mp;
+        sort(changed.rbegin(), changed.rend());
         vector<int> ans;
-        for(int i : changed) {
-            if(i%2 == 1) {
-                mp[i]++;
-                continue;
+         
+        for(auto i: changed){ 
+            if(mp[2*i] > 0){
+                ans.push_back(i);
+                mp[2*i] --;
             }
-            if(mp[i/2] > 0) {
-                mp[i/2]--;
-                ans.push_back(i/2);
-            }
-            else {
-                mp[i]++;
-            }
+            else mp[i]++;            
         }
-        for(auto i : mp) {
-            if(i.second != 0)   return {};
-        }
-        return ans;
+        if(ans.size() == n/2)
+            return ans;
+        return {};
     }
 };
