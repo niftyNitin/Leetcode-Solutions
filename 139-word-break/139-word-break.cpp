@@ -1,25 +1,27 @@
 class Solution {
 public:
-    int dp[301];
-    bool helper(string &s, int start, unordered_set<string> &dict) {
-        if(start == s.size())   return 1;
+    unordered_map<string, int> mp;
+    vector<int> dp;
+    bool solve(string s, int idx){
+        if(idx == s.length()) return true;
+        if(s.length() == 0) return true;
+        if(mp.count(s)) return true;
         
-        if(dp[start] != -1)     return dp[start];
-        bool flag = false;
-        for(int i = start+1; i <= s.size(); i++) {
-            string sub = s.substr(start, i-start);
-            if(dict.count(sub) == 1) {
-                flag = flag | helper(s, i, dict);
-            }
+        if(dp[idx] != -1)   return dp[idx];
+        string first = "";
+        for(int i=idx; i<s.length(); i++){
+            first += s[i];
+            if(mp.count(first) and solve(s, i+1)){
+                return dp[idx] = true;
+            } 
         }
-        
-        return dp[start] = flag;
+        return dp[idx] = false;
     }
-    
     bool wordBreak(string s, vector<string>& wordDict) {
-        memset(dp, -1, sizeof(dp));
-        vector<string> ds;
-        unordered_set<string> dict(wordDict.begin(), wordDict.end());
-        return helper(s, 0, dict);
+        
+        for(auto word: wordDict)
+            mp[word]++;
+        dp.resize(s.length() + 1, -1);
+        return solve(s, 0);
     }
 };
