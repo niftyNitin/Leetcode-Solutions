@@ -13,6 +13,6 @@ public:
     
     int rob(vector<int>& nums) {
         dp.resize(nums.size()+1, -1);
-        return max(solve(nums, 0), solve(nums, 1));
+        return solve(nums, 0);
     }
 };
