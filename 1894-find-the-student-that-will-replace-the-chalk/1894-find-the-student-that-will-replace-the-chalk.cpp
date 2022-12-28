@@ -10,17 +10,7 @@ public:
         
         k = k % pre[n-1];
         
-        int low = 0, high = pre.size()-1, ans = 0;
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-            if(pre[mid] > k) {
-                ans = mid;
-                high = mid - 1;
-            }
-            else {
-                low = mid + 1;
-            }
-        }
-        return ans;
+        int id = upper_bound(pre.begin(), pre.end(), k) - pre.begin();
+        return id;
     }
 };
