@@ -10,24 +10,23 @@
  * };
  */
 class Solution {
-public:
-    int sum = 0;
-    
-    void dfs(TreeNode* root, int pathsum) {
-        if(!root)   return;
-        
-        pathsum = pathsum * 10 + root->val;
+    int ans = 0;
+    void solve(TreeNode* root, int sum) {
         if(!root->left and !root->right) {
-            sum += pathsum;
+            sum = sum*10 + root->val;
+            ans += sum;
             return;
         }
         
-        dfs(root->left, pathsum);
-        dfs(root->right, pathsum);
+        sum = sum*10 + root->val;
+        if(root->left)  solve(root->left, sum);
+        if(root->right) solve(root->right, sum);
     }
     
+public:
     int sumNumbers(TreeNode* root) {
-        dfs(root, 0);
-        return sum;
+        if(!root)   return 0;
+        solve(root, 0);
+        return ans;
     }
 };
